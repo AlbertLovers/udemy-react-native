@@ -30,7 +30,8 @@ const styles = StyleSheet.create({
 		margin: 5,
 		borderRadius: 5,
 		borderWidth: 1,
-		borderColor: 'black'
+		borderColor: 'black',
+		alignItems: 'center'
 	}
 });
 

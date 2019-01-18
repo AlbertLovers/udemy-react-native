@@ -1,31 +1,43 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { View, Text, Button, StyleSheet, TextInput, ImageBackground, Dimensions } from 'react-native';
+
 import startMainTabs from  '../MainTabs/startMainTabs';
+
 import DefaultTextInput from '../../components/Input/DefaultTextInput';
 import HeaderText from '../../components/HeaderText/HeaderText';
 import ButtonWithBackground from '../../components/Input/ButtonWithBackground';
+
 import backgroundImage from '../../assets/background.jpg';
 
 class AuthScreen extends React.Component {
+	state = {
+		headerText: <HeaderText>Please Log in</HeaderText>
+	};
+
 	loginHandler = () => {
 		startMainTabs();
 	}
 
 	render() {
 		let headingText = null;
-		if(Dimensions.get('window').height > 500) {
-			headingText = <HeaderText>Please Log in</HeaderText>;
-		}
+		const isPortraitMode = this.state.isPortraitMode;
 
 		return (
 			<ImageBackground source={ backgroundImage } style={ styles.backgroundImage }>
 				<View style={ styles.container }>
-					{ headingText }
+					{ this.state.headerText }
 					<View style={ styles.inputContainer }>
 						<DefaultTextInput placeholder='Your e-mail address' style={ styles.input } />
-						<View style={ styles.passwordContainer }>
-							<DefaultTextInput placeholder='Password' style={ styles.input } />
-							<DefaultTextInput placeholder='Confirm password' style={ styles.input } />
+
+						<View style={ styles[ isPortraitMode ? 'portraitPasswordContainer' : 'landscapePasswordContainer' ] }>
+							<View style={ styles[ isPortraitMode ? 'portraitPasswordWrapper' : 'landscapePasswordWrapper' ] }>
+								<DefaultTextInput placeholder='Password' style={ styles.input } />
+							</View>
+
+							<View style={ styles[ isPortraitMode ? 'portraitPasswordWrapper' : 'landscapePasswordWrapper' ] }>
+								<DefaultTextInput placeholder='Confirm password' style={ styles.input } />
+							</View>
 						</View>
 					</View>
 
@@ -60,10 +72,28 @@ const styles = StyleSheet.create({
 		width: '100%',
 		flex: 1
 	},
-	passwordContainer: {
-		flexDirection: Dimensions.get('window').height > 500 ? 'column' : 'row';
+	landscapePasswordContainer: {
+		flexDirection: 'row',
+		justifyContent: 'space-between'
+	},
+	portraitPasswordContainer: {
+		flexDirection: 'column',
+		justifyContent: 'flex-start'
+	},
+	landscapePasswordWrapper: {
+		width: '45%'
+	},
+	portraitPasswordWrapper: {
+		width: '100%'
 	}
-
 });
 
-export default AuthScreen;
+const mapStateToProps = function(state) {
+	return {
+		isPortraitMode: state.device.isPortraitMode
+	};
+}
+
+export default connect(
+	mapStateToProps
+)(AuthScreen);

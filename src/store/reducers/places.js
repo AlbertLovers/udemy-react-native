@@ -1,7 +1,7 @@
-import { ADD_PLACE, DELETE_PLACE } from '../actions/actionTypes';
+import { ADD_PLACE, DELETE_PLACE, SET_IS_PORTRAIT_MODE } from '../actions/actionTypes';
 
 const initialState = {
-	places: [],
+	places: []
 };
 
 const reducer = (state = initialState, action) => {
