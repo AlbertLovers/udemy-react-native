@@ -1,0 +1,21 @@
+# expo
+.expo/
+
+# dependencies
+/node_modules
+
+# misc
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+*.log*
+
+/android/app
+/android/.idea
+/android/keystores
+/android/gradlew
+.gradle/
+build/
+/ios
