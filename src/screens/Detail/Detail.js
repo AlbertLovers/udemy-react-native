@@ -5,24 +5,34 @@ import { connect } from 'react-redux';
 import { deletePlace } from '../../store/actions/index';
 
 class DetailScreen extends Component {
-	
+
 	onDeleteHandler = () => {
 		this.props.deletePlace(this.props.selectedPlace.key);
 		this.props.navigator.pop();
 	}
 
 	render() {
+		const { isPortraitMode, selectedPlace } = this.props;
+const imageStyle =  [ styles.container,
+					  isPortraitMode 
+						 ? styles.portraitImageStyle 
+						 : styles.landscapeImageStyle
+					];
 		return (
-			<View style={ styles.default }>
-				<View>
-					<Image source={ this.props.selectedPlace.image } style={ styles.image } />
-					<Text style={ styles.textValue }>{ this.props.selectedPlace.name }</Text>
+			<View style={ styles[ isPortraitMode ? 'portrait' : 'landscape' ] }>
+				<View style={ imageStyle }>
+
+					<Image source={ selectedPlace.image } style={ styles[isPortraitMode ? 'portraitImageStyle' : 'landscapeImageStyle'] } />
 				</View>
-				
+
 				<View>
+					<View>
+						<Text style={ styles.textValue }>{ selectedPlace.name }</Text>
+					</View>
+
 					<View style={ styles.deleteButton }>
-						<TouchableOpacity onPress={ this.onDeleteHandler }> 
-							<Icon size={ 30 } 
+						<TouchableOpacity onPress={ this.onDeleteHandler }>
+							<Icon size={ 30 }
 								  name={ Platform.OS === 'android' ? 'md-trash' : 'ios-trash' }
 								  color='red' />
 						</TouchableOpacity>
@@ -34,23 +44,48 @@ class DetailScreen extends Component {
 };
 
 const styles = StyleSheet.create({
-	default: {
-		margin: 22
-	}, 
-	image: {
-		flexBasis: '50%',
-		width: '100%',
-		height: 200
+	container: {
+		margin: 22,
+		flex: 1
 	},
+
+	portrait: {
+		flexDirection: 'column',
+	},
+
+	landscape: {
+		flexDirection: 'row',
+	},
+
+	portraitImageStyle: {
+		width: '50%',
+		height: 200,
+		flex: 3
+	},
+
+	landscapeImageStyle: {
+		width: '50%',
+		height: 200,
+		flex: 3
+	},
+
 	textValue: {
 		fontWeight: 'bold',
 		textAlign: 'center',
 		fontSize: 28
 	},
+
 	deleteButton: {
-		alignItems: 'center'
+		alignItems: 'center',
+		flex: 1
 	}
 });
+
+function mapStateToProps(state) {
+	return {
+		isPortraitMode: state.device.isPortraitMode
+	};
+}
 
 function mapDispatchToProps() {
 	return {
@@ -59,6 +94,6 @@ function mapDispatchToProps() {
 }
 
 export default connect(
-	null,
+	mapStateToProps,
 	mapDispatchToProps()
 )(DetailScreen);

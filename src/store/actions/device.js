@@ -1,8 +1,8 @@
-import { SET_IS_PORTRAIT_MODE } from './actionTypes';
+import { SET_DIMENSION_VALUES } from './actionTypes';
 
-export const setIsPortraitMode = (isPortraitMode) => {
+export const setDimensonValues = values => {
 	return {
-		type: SET_IS_PORTRAIT_MODE,
-		value: isPortraitMode
+		type: SET_DIMENSION_VALUES,
+		value: values
 	};
 };

@@ -1,4 +1,4 @@
-import { ADD_PLACE, DELETE_PLACE, SET_IS_PORTRAIT_MODE } from '../actions/actionTypes';
+import { SET_DIMENSION_VALUES } from '../actions/actionTypes';
 
 const initialState = {
 	isPortraitMode: true
@@ -6,17 +6,11 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
 	switch(action.type) {
-		case SET_IS_PORTRAIT_MODE:
-			return setIsPortraitMode(Object.assign({}, state.device), action.value);
+		case SET_DIMENSION_VALUES:
+			return Object.assign({}, state.device, action.value);
 		default:
 			return state;
 	}
 };
-
-function setIsPortraitMode(state, value) {
-	state.isPortraitMode = value;
-
-	return state;
-}
 
 export default reducer;

@@ -15,7 +15,5 @@
 /android/app
 /android/.idea
 /android/keystores
-/android/gradlew
-.gradle/
 build/
 /ios

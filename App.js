@@ -9,15 +9,27 @@ import FindPlaceScreen from './src/screens/FindPlace/FindPlace';
 import SideDrawer from './src/screens/SideDrawer/SideDrawer';
 import DetailScreen from './src/screens/Detail/Detail';
 
-import { setIsPortraitMode } from './src/store/actions/device'
+import { setDimensonValues } from './src/store/actions/device'
 
 const store = configureStore();
 
-store.dispatch(setIsPortraitMode(Dimensions.get('window').height > 360));
+store.dispatch(setDimensonValues(
+	{
+		isPortraitMode: Dimensions.get('window').height > 360,
+		width: Dimensions.get('window').width,
+		height: Dimensions.get('window').height
+	}
+));
 
 Dimensions.addEventListener('change', dimensions => {
 	const isPortraitMode = dimensions.window.height > 360;
-	store.dispatch(setIsPortraitMode(isPortraitMode));
+	store.dispatch(setDimensonValues(
+		{
+			isPortraitMode: isPortraitMode,
+			width: dimensions.width,
+			height: dimensions.height
+		})
+	);
 });
 
 // Register screens

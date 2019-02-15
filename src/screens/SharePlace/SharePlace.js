@@ -8,6 +8,10 @@ import PickImage from '../../components/Input/PickImage';
 import HeaderText from '../../components/HeaderText/HeaderText';
 
 class SharePlaceScreen extends React.Component {
+	static navigatorStyle = {
+		navBarButtonColor: 'orange'
+	};
+
 	state = {
 		placeName: ''
 	};
@@ -48,7 +52,7 @@ class SharePlaceScreen extends React.Component {
 						Share a place with us
 					</HeaderText>
 
-					<PickImage />
+					<PickImage onPress={ this.mapInputhandler } />
 
 					<MapInput onPress={ this.mapInputhandler } />
 

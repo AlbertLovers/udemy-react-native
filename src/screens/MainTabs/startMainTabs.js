@@ -36,10 +36,16 @@ const startTabs = () => {
 					navigatorButtons: sideMenu(sources, 'sideDrawerToggle')
 				}
 			],
+			tabsStyle: {
+				tabBarSelectedButtonColor: 'orange'
+			},
 			drawer: {
 				left: {
 					screen: 'paranoia.SideDrawer'
 				}
+			},
+			appStyle: {
+				tabBarSelectedButtonColor: 'orange'
 			}
 		})
 	});
